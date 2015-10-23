@@ -1,5 +1,7 @@
 class window.Hand extends Backbone.Collection
   model: Card
+ 
+  score: 0
 
   initialize: (array, @deck, @isDealer) ->
 
@@ -20,6 +22,13 @@ class window.Hand extends Backbone.Collection
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
-    [@minScore(), @minScore() + 10 * @hasAce()]
+    scores = [@minScore(), @minScore() + 10 * @hasAce()]
+    @score = if scores[1] > scores[0] and scores[1] <= 21 then scores[1] else scores[0]
+    @score
+
+  bustChecker: ->
+    if @score > 21 
+      winner = (if @isDealer then 'Player' else 'Dealer') 
+      alert "#{winner} wins!"
 
 

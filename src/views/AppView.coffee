@@ -11,6 +11,7 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
+    @model.get('playerHand').score.on 'change', @model.get('playerHand').bustChecker
 
   render: ->
     @$el.children().detach()
