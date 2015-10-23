@@ -11,7 +11,9 @@ class window.Hand extends Backbone.Collection
 
 
   hasAce: -> @reduce (memo, card) ->
-    memo or card.get('value') is 1
+    if card.get 'revealed'
+      memo or card.get('value') is 1
+    else memo
   , 0
 
   minScore: -> @reduce (score, card) ->
