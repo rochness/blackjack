@@ -1,10 +1,14 @@
 # TODO: Refactor this model to use an internal Game Model instead
 # of containing the game logic directly.
 class window.App extends Backbone.Model
+  
   initialize: ->
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-    # @listenTo @get('playerHand'), 'change', @get('playerHand').bustChecker
-    # @listenTo @get('dealerHand'), 'change', @get('dealerHand').bustChecker
+    @listenTo @get('playerHand'), 'stand', @get('dealerHand').hit.bind @get 'dealerHand'
+    @listenTo @get('dealerHand'), 'endGame', @declareWinner
+
+  declareWinner: ->
+    if @get('playerHand').score > @get('dealerHand').score then alert "Player wins!" else alert "Dealer wins!"
 

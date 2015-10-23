@@ -6,8 +6,17 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop())
-    @last()
+    if @isDealer
+      @first().flip()
+      @scores()
+      while (!@hasAce() and @score < 17) or (@hasAce() and @score <= 17) 
+        @add(@deck.pop())
+        @last()
+        @scores()
+      @trigger 'endGame', @
+    else
+      @add(@deck.pop())
+      @last()
 
 
   hasAce: -> @reduce (memo, card) ->
@@ -33,4 +42,6 @@ class window.Hand extends Backbone.Collection
       winner = (if @isDealer then 'Player' else 'Dealer') 
       alert "#{winner} wins!"
 
+  stand: ->
+    @trigger 'stand', @
 
