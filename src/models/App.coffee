@@ -4,11 +4,4 @@ class window.App extends Backbone.Model
   
   initialize: ->
     @set 'deck', deck = new Deck()
-    @set 'playerHand', deck.dealPlayer()
-    @set 'dealerHand', deck.dealDealer()
-    @listenTo @get('playerHand'), 'stand', @get('dealerHand').hit.bind @get 'dealerHand'
-    @listenTo @get('dealerHand'), 'endGame', @declareWinner
-
-  declareWinner: ->
-    if @get('playerHand').score > @get('dealerHand').score then alert "Player wins!" else alert "Dealer wins!"
-
+    @set 'game', new Game(deck)
