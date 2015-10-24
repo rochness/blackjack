@@ -5,12 +5,12 @@
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
+  background-size: cover;
 }
 
 .covered {
-  background-color: black;
+  /*background-color: black;*/
   background-image: url("../img/card-back.png");
-  background-size: cover;
   /*position: relative;*/
   /*z-index: 0;*/
 }
@@ -19,8 +19,6 @@
   overflow: auto;
 }
 
-.covered .cardText {
+.cardText {
   display: none;
-  /*position: relative;*/
-  /*z-index: 100;*/
 }
