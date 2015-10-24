@@ -9,8 +9,18 @@
 
 .covered {
   background-color: black;
+  background-image: url("../img/card-back.png");
+  background-size: cover;
+  /*position: relative;*/
+  /*z-index: 0;*/
 }
 
 .hand {
   overflow: auto;
+}
+
+.covered .cardText {
+  display: none;
+  /*position: relative;*/
+  /*z-index: 100;*/
 }
