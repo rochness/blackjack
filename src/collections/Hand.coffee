@@ -13,11 +13,12 @@ class window.Hand extends Backbone.Collection
         @add(@deck.pop())
         @last()
         @scores()
+        @bustChecker()
       if @score <= 21 then @trigger 'endGame', @
     else
       @add(@deck.pop())
       @last()
-
+      @bustChecker()
 
   hasAce: -> @reduce (memo, card) ->
     if card.get 'revealed'
@@ -38,10 +39,11 @@ class window.Hand extends Backbone.Collection
     @score
 
   bustChecker: ->
-    if @score > 21 
-      winner = (if @isDealer then 'Player' else 'Dealer') 
-      window.alert "#{winner} wins!"
+    if @score > 21 then @trigger 'busted'
 
   stand: ->
     @trigger 'stand', @
+
+  viewRendered: ->
+    @trigger 'viewRendered', @
 

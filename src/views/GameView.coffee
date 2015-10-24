@@ -12,11 +12,12 @@ class window.GameView extends Backbone.View
   initialize: ->
     # console.log(@model)
     @render()
-    # @model.get('playerHand').score.on 'change', @model.get('playerHand').bustChecker
+    @model.on 'change:revealed', @render, @
 
   render: ->
     @$el.children().detach()
-    @$el.html @template()
-    @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
-    @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+    if @model.get 'revealed'
+      @$el.html @template()
+      @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
+      @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
